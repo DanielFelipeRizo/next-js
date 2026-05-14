@@ -27,18 +27,17 @@ const Blogs = async ({ searchParams }: Props) => {
         ?query=valor a la URL, lo que Next.js detecta y recarga la página con 
         los nuevos resultados.
       */}
-      <form style={{ marginBottom: '20px' }}>
+      <form>
         <input
           name="query"
           defaultValue={query} // Mantiene el texto buscado en el input
           placeholder="Buscar por título..."
-          style={{ padding: '5px', marginRight: '5px' }}
         />
         <button type="submit">Buscar</button>
         
         {/* Botón opcional para limpiar la búsqueda */}
         {query && (
-          <Link href="/blogs" style={{ marginLeft: '10px', fontSize: '0.8rem' }}>
+          <Link href="/blogs">
             Limpiar búsqueda
           </Link>
         )}
