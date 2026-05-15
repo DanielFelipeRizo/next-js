@@ -9,7 +9,7 @@ const Blogs = async ({ searchParams }: Props) => {
 
   const { query } = await searchParams
 
-  const blogs = getBlogs()
+  const blogs = await getBlogs()
 
   const filteredBlogs = query
     ? blogs.filter(blog => blog.title.toLowerCase().includes(query.toLowerCase()))
