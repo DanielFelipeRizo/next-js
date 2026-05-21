@@ -27,3 +27,10 @@ export const blogsRelations = relations(blogs, ({ one }) => ({
   }),
 }))
 
+
+// comandos
+//->npx drizzle-kit generate
+//->npx drizzle-kit migrate
+
+// cuando no tome los cambios
+//->npx drizzle-kit push
