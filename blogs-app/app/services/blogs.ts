@@ -1,6 +1,6 @@
-import { eq } from "drizzle-orm"
+import { eq, sql } from "drizzle-orm"
 import { db } from "../../db"
-import { blogs } from "@/db/schema"
+import { blogs } from "../../db/schema"
 
 export const getBlogs = async () => {
     return db.query.blogs.findMany()
@@ -13,7 +13,9 @@ export const getBlogById = async (id: number) => {
 }
 
 export const addBlog = async (title: string, author: string, url: string) => {
-    await db.insert(blogs).values({title, author, url})
+
+
+    await db.insert(blogs).values({title, author, url, userId: 1})
 }
 
 export const updateLikes = async (id: number) => {
