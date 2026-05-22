@@ -8,6 +8,13 @@
       "when": 1779314378238,
       "tag": "0000_lively_sabretooth",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1779461832414,
+      "tag": "0001_tired_oracle",
+      "breakpoints": true
     }
   ]
 }

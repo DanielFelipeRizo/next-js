@@ -14,6 +14,7 @@ export const users = pgTable("users", {
   id: serial("id").primaryKey(),
   username: text("username").notNull().unique(),
   name: text("name").notNull(),
+  passwordHash: text("password_hash").notNull().default(""),
 })
 
 export const usersRelations = relations(users, ({ many }) => ({
@@ -32,5 +33,5 @@ export const blogsRelations = relations(blogs, ({ one }) => ({
 //->npx drizzle-kit generate
 //->npx drizzle-kit migrate
 
-// cuando no tome los cambios
+// cuando no tome los cambios en neon
 //->npx drizzle-kit push
