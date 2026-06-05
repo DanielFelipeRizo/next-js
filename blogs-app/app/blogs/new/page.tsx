@@ -1,14 +1,21 @@
+"use client"
+
+import { useActionState } from "react"
 import { createBlog } from "@/app/actions/blogs"
+import type { BlogActionState } from "@/app/actions/blogs"
 
 const NewBlog = () => {
+
+    const [state, formAction] = useActionState<BlogActionState, FormData>(createBlog, { error: "" })
+
     return (
         <div>
             <h2>Create a new blog</h2>
-            <form action={createBlog}>
+            <form action={formAction}>
                 <div>
                     <label>
                         Title
-                        <input type="text" name="title" required />
+                        <input type="text" name="title" required defaultValue={state?.value}/>
                     </label>
                 </div>
                 <div>
@@ -24,6 +31,7 @@ const NewBlog = () => {
                     </label>
                 </div>
                 <button type="submit">Create</button>
+                {state.error && <p style={{ color: "red" }}>{state.error}</p>}
             </form>
         </div>
     )
