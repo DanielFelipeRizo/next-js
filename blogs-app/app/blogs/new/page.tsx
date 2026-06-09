@@ -6,7 +6,9 @@ import type { BlogActionState } from "@/app/actions/blogs"
 
 const NewBlog = () => {
 
-    const [state, formAction] = useActionState<BlogActionState, FormData>(createBlog, { error: "" })
+    const [state, formAction] = useActionState<BlogActionState, FormData>(createBlog, {})
+
+    console.log(state)
 
     return (
         <div>
@@ -15,23 +17,55 @@ const NewBlog = () => {
                 <div>
                     <label>
                         Title
-                        <input type="text" name="title" required defaultValue={state?.value}/>
+                        <input 
+                            type="text" 
+                            name="title" 
+                            required 
+                            defaultValue={state?.values?.title}
+                        />
                     </label>
+                    {state?.errors?.title && (
+                        <p style={{ color: "red", fontSize: "0.875rem", margin: "4px 0 0 0" }}>
+                            {state.errors.title}
+                        </p>
+                    )}
                 </div>
                 <div>
                     <label>
                         Author
-                        <input type="text" name="author" required />
+                        <input 
+                            type="text" 
+                            name="author" 
+                            required 
+                            defaultValue={state?.values?.author}
+                        />
                     </label>
+                    {state?.errors?.author && (
+                        <p style={{ color: "red", fontSize: "0.875rem", margin: "4px 0 0 0" }}>
+                            {state.errors.author}
+                        </p>
+                    )}
                 </div>
                 <div>
                     <label>
                         URL
-                        <input type="text" name="url" required />
+                        <input 
+                            type="text" 
+                            name="url" 
+                            required 
+                            defaultValue={state?.values?.url}
+                        />
                     </label>
+                    {state?.errors?.url && (
+                        <p style={{ color: "red", fontSize: "0.875rem", margin: "4px 0 0 0" }}>
+                            {state.errors.url}
+                        </p>
+                    )}
                 </div>
-                <button type="submit">Create</button>
-                {state.error && <p style={{ color: "red" }}>{state.error}</p>}
+                <button type="submit" style={{ marginTop: "12px" }}>Create</button>
+                {state?.errors?.general && (
+                    <p style={{ color: "red", marginTop: "8px" }}>{state.errors.general}</p>
+                )}
             </form>
         </div>
     )

@@ -6,8 +6,17 @@ import { addBlog, updateLikes } from "../services/blogs"
 import { auth } from "@auth"
 
 export interface BlogActionState {
-    error: string;
-    value?: string;
+    errors?: {
+        title?: string;
+        author?: string;
+        url?: string;
+        general?: string;
+    };
+    values?: {
+        title?: string;
+        author?: string;
+        url?: string;
+    };
 }
 
 export const createBlog = async (
@@ -20,20 +29,29 @@ export const createBlog = async (
         redirect("/login")
     }
 
-    const title = formData.get("title") as string
+    const title = (formData.get("title") as string) || ""
+    const author = (formData.get("author") as string) || ""
+    const url = (formData.get("url") as string) || ""
+
+    const errors: NonNullable<BlogActionState["errors"]> = {}
 
     if (!title || title.length < 5) {
-        return { error: "Title must be at least 5 characters long", value: title }
+        errors.title = "Title must be at least 5 characters long"
     }
 
-    const author = formData.get("author") as string
     if (!author || author.length < 5) {
-        return { error: "Author must be at least 5 characters long", value: title }
+        errors.author = "Author must be at least 5 characters long"
     }
 
-    const url = formData.get("url") as string
     if (!url || url.length < 5) {
-        return { error: "URL must be at least 5 characters long", value: title }
+        errors.url = "URL must be at least 5 characters long"
+    }
+
+    if (Object.keys(errors).length > 0) {
+        return {
+            errors,
+            values: { title, author, url }
+        }
     }
 
     await addBlog(title, author, url)
