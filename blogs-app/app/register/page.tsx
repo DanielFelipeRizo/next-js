@@ -66,7 +66,7 @@ export default function RegisterPage() {
               type="password" 
               name="confirmPassword" 
               required 
-              defaultValue={state?.values?.password}
+              defaultValue={state?.values?.confirmPassword}
             />
           </label>
         </div>

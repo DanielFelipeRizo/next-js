@@ -17,6 +17,7 @@ export interface BlogActionState {
         author?: string;
         url?: string;
     };
+    success?: boolean;
 }
 
 export const createBlog = async (
@@ -50,14 +51,14 @@ export const createBlog = async (
     if (Object.keys(errors).length > 0) {
         return {
             errors,
-            values: { title, author, url }
+            values: { title, author, url },
+            success: false
         }
     }
 
     await addBlog(title, author, url)
-
     revalidatePath("/blogs")
-    redirect("/blogs")
+    return { success: true }
 }
 
 export const likeBlog = async (formData: FormData) => {
